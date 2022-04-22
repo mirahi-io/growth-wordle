@@ -1,12 +1,5 @@
 import { key } from 'styles/components/key.css';
-import { Setter } from 'solid-js';
-
-const enum LetterState {
-  INITIAL = 0,
-  CORRECT = 'correct',
-  PRESENT = 'present',
-  ABSENT = 'absent',
-}
+import { Setter, onMount, onCleanup } from 'solid-js';
 
 const rows = [
   'qwertyuiop'.split(''),
@@ -19,6 +12,9 @@ type KeyboardProps = {
 };
 
 export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
+  onMount(() => document.addEventListener('keypress', keyboardListener));
+  onCleanup(() => document.removeEventListener('keypress', keyboardListener));
+
   return (
     <div>
       {rows.map((row) => (
@@ -35,4 +31,16 @@ export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
       ))}
     </div>
   );
+};
+
+const keyboardListener = (event: KeyboardEvent) => {
+  if (event.key == 'Enter') {
+    console.log(event.key);
+  } else if (event.key == 'Backspace') {
+    console.log(event.key);
+  } else if ('abcdefghijklmnopqrstuvwxyz'.includes(event.key.toLowerCase())) {
+    console.log(event.key);
+  } else if (event.keyCode === 8) {
+    console.log(event.keyCode);
+  }
 };
