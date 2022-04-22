@@ -1,5 +1,4 @@
-import { onMount, onCleanup, createSignal, For, Show } from 'solid-js';
-import JSConfetti from 'js-confetti';
+import { onMount, onCleanup, For, Show } from 'solid-js';
 import {
   styledKeyboard,
   styledTile,
@@ -13,31 +12,32 @@ const rows = [
 ];
 
 type KeyboardProps = {
+  // eslint-disable-next-line no-unused-vars
   onKey: (key: string) => void;
 };
 
-export const Keyboard = ({ onKey }: KeyboardProps) => {
+export const Keyboard = (props: KeyboardProps) => {
   onMount(() => {
     document.addEventListener('keydown', keyboardListener);
     document.addEventListener('keyup', cleanKey);
-    easterEgg();
   });
   onCleanup(() => {
     document.removeEventListener('keydown', keyboardListener);
     document.removeEventListener('keyup', cleanKey);
   });
 
+  // handle the keyboard input from the user
   const keyboardListener = (event: KeyboardEvent) => {
     if (event.key == 'Enter') {
-      onKey(event.key);
+      props.onKey(event.key);
     } else if (event.key == 'Backspace') {
-      onKey(event.key);
+      props.onKey(event.key);
     } else if ('abcdefghijklmnopqrstuvwxyz'.includes(event.key.toLowerCase())) {
-      onKey(event.key);
+      props.onKey(event.key);
     }
   };
 
-  const cleanKey = () => onKey('');
+  const cleanKey = () => props.onKey('');
 
   return (
     <div class={styledKeyboard}>
@@ -49,8 +49,8 @@ export const Keyboard = ({ onKey }: KeyboardProps) => {
                 <button
                   class={styledTile}
                   onClick={() => {
-                    onKey(key);
-                    onKey('');
+                    props.onKey(key);
+                    props.onKey('');
                   }}
                 >
                   <Show when={key === 'Backspace'} fallback={key}>
@@ -75,33 +75,4 @@ export const Keyboard = ({ onKey }: KeyboardProps) => {
       </For>
     </div>
   );
-};
-
-const easterEgg = () => {
-  const pattern = ['m', 'i', 'r', 'a', 'i'];
-  const [current, setCurrent] = createSignal(0);
-  const jsConfetti = new JSConfetti();
-
-  onMount(() => document.addEventListener('keydown', keyHandler));
-  onCleanup(() => document.removeEventListener('keydown', keyHandler));
-
-  const keyHandler = (e: KeyboardEvent) => {
-    // If the key isn't in the pattern, or isn't the current key in the pattern, reset
-    if (pattern.indexOf(e.key) < 0 || e.key !== pattern[current()]) {
-      setCurrent(0);
-      return;
-    }
-
-    // Update how much of the pattern is complete
-    setCurrent((prev) => prev + 1);
-
-    // If complete, alert and reset
-    if (pattern.length === current()) {
-      setCurrent(0);
-
-      jsConfetti.addConfetti({
-        confettiNumber: 1000,
-      });
-    }
-  };
 };
