@@ -1,4 +1,4 @@
-import { For } from 'solid-js';
+import { For, Accessor, createEffect } from 'solid-js';
 import { BoardGrid } from '../types';
 import {
   board,
@@ -9,13 +9,17 @@ import {
 } from 'styles/components/board.css';
 
 type Props = {
-  grid: BoardGrid;
+  grid: Accessor<BoardGrid>;
 };
 
 export const Board = (props: Props) => {
+  createEffect(() => {
+    console.log(props.grid());
+  });
+
   return (
     <div class={board}>
-      <For each={props.grid} fallback={<div>Loading...</div>}>
+      <For each={props.grid()} fallback={<div>Loading...</div>}>
         {(row) => (
           <div class={boardRow()}>
             <For each={row} fallback={<div>Loading...</div>}>

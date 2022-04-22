@@ -1,4 +1,4 @@
-import { Setter, onMount, onCleanup, createSignal, For, Show } from 'solid-js';
+import { onMount, onCleanup, createSignal, For, Show } from 'solid-js';
 import JSConfetti from 'js-confetti';
 import {
   styledKeyboard,
@@ -13,10 +13,10 @@ const rows = [
 ];
 
 type KeyboardProps = {
-  setActiveKey: Setter<string>;
+  onKey: (key: string) => void;
 };
 
-export const Keyboard = (props: KeyboardProps) => {
+export const Keyboard = ({ onKey }: KeyboardProps) => {
   onMount(() => {
     document.addEventListener('keydown', keyboardListener);
     document.addEventListener('keyup', cleanKey);
@@ -29,15 +29,15 @@ export const Keyboard = (props: KeyboardProps) => {
 
   const keyboardListener = (event: KeyboardEvent) => {
     if (event.key == 'Enter') {
-      props.setActiveKey(event.key);
+      onKey(event.key);
     } else if (event.key == 'Backspace') {
-      props.setActiveKey(event.key);
+      onKey(event.key);
     } else if ('abcdefghijklmnopqrstuvwxyz'.includes(event.key.toLowerCase())) {
-      props.setActiveKey(event.key);
+      onKey(event.key);
     }
   };
 
-  const cleanKey = () => props.setActiveKey('');
+  const cleanKey = () => onKey('');
 
   return (
     <div class={styledKeyboard}>
@@ -49,8 +49,8 @@ export const Keyboard = (props: KeyboardProps) => {
                 <button
                   class={styledTile}
                   onClick={() => {
-                    props.setActiveKey(key);
-                    props.setActiveKey('');
+                    onKey(key);
+                    onKey('');
                   }}
                 >
                   <Show when={key === 'Backspace'} fallback={key}>
