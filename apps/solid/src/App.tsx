@@ -22,7 +22,7 @@ const App: Component = () => {
 
   setAnswer(getWordOfTheDay());
 
-  createEffect(() => console.log(activeKey()));
+  createEffect(() => console.log(activeKey()), activeKey());
 
   return (
     <>
