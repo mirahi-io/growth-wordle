@@ -6,6 +6,8 @@ import JSConfetti from 'js-confetti';
 
 import { getWordOfTheDay, allWords } from 'game-settings';
 import { LetterState, BoardGrid } from './types';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 const updateGrid = (
   grid: BoardGrid,
@@ -245,6 +247,7 @@ const App: Component = () => {
           </Show>
         </div>
       </Show>
+      <Header title="SWordle"></Header>
       <Board
         grid={grid()}
         shakeRowIndex={shakeRowIndex()}
@@ -252,6 +255,7 @@ const App: Component = () => {
         success={success()}
       />
       <Keyboard onKey={onKey} />
+      <Footer />
     </>
   );
 };
