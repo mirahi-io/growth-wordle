@@ -1,23 +1,34 @@
 import { Component, createEffect, createSignal } from 'solid-js';
-import { button } from 'styles/components/button.css';
-import styles from './App.module.css';
 import { Keyboard } from './components/Keyboard';
 import { Board } from './components/Board';
 
 import { getWordOfTheDay } from 'game-settings';
+import { LetterState, BoardGrid } from './types';
 
 const App: Component = () => {
   // key clicked by the user
   const [activeKey, setActiveKey] = createSignal('');
+  const [answer, setAnswer] = createSignal('');
+
+  // Board state. Each tile is represented as { letter, state }
+  const [grid, setGrid] = createSignal<BoardGrid>(
+    Array.from({ length: 6 }, () =>
+      Array.from({ length: 5 }, () => ({
+        letter: '',
+        state: LetterState.INITIAL,
+      }))
+    )
+  );
+
+  setAnswer(getWordOfTheDay());
 
   createEffect(() => console.log(activeKey()));
 
   return (
-    <div class={styles.App}>
-      <button class={button({ color: 'neutral' })}>test</button>
-      <Board wordOfTheDay={getWordOfTheDay()} />
+    <>
+      <Board grid={grid()} />
       <Keyboard setActiveKey={setActiveKey} />
-    </div>
+    </>
   );
 };
 
