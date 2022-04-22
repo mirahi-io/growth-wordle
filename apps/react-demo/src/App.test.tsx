@@ -1,7 +1,7 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
-import App from './App'
-import { GAME_TITLE } from './constants/strings'
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+import { GAME_TITLE } from './constants/strings';
 
 beforeEach(() => {
   Object.defineProperty(window, 'matchMedia', {
@@ -16,11 +16,11 @@ beforeEach(() => {
       removeEventListener: jest.fn(),
       dispatchEvent: jest.fn(),
     })),
-  })
-})
+  });
+});
 
 test('renders App component', () => {
-  render(<App />)
-  const linkElement = screen.getByText(GAME_TITLE)
-  expect(linkElement).toBeInTheDocument()
-})
+  render(<App />);
+  const linkElement = screen.getByText(GAME_TITLE);
+  expect(linkElement).toBeInTheDocument();
+});
