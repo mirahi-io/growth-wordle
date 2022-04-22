@@ -1,5 +1,6 @@
 import { key } from 'styles/components/key.css';
 import { Setter, onMount, onCleanup, createSignal } from 'solid-js';
+import JSConfetti from 'js-confetti';
 
 const rows = [
   'qwertyuiop'.split(''),
@@ -73,6 +74,7 @@ export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
 const easterEgg = () => {
   const pattern = ['m', 'i', 'r', 'a', 'i'];
   const [current, setCurrent] = createSignal(0);
+  const jsConfetti = new JSConfetti();
 
   onMount(() => document.addEventListener('keydown', keyHandler));
   onCleanup(() => document.removeEventListener('keydown', keyHandler));
@@ -90,7 +92,21 @@ const easterEgg = () => {
     // If complete, alert and reset
     if (pattern.length === current()) {
       setCurrent(0);
-      console.log('mirai');
+
+      jsConfetti.addConfetti();
+
+      jsConfetti.addConfetti({
+        emojis: ['🌈', '❤️', '💥', '✨', '💫', '🌸'],
+      });
+
+      jsConfetti.addConfetti({
+        confettiRadius: 6,
+        confettiNumber: 2000,
+      });
+
+      jsConfetti
+        .addConfetti()
+        .then(() => console.log('Confetti animation completed!'));
     }
   };
 };
