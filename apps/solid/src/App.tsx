@@ -2,6 +2,7 @@ import { Component, createSignal, Show } from 'solid-js';
 import { Keyboard } from './components/Keyboard';
 import { Board } from './components/Board';
 import { message as messageStyle } from 'styles/components/message.css';
+import JSConfetti from 'js-confetti';
 
 import { getWordOfTheDay, allWords } from 'game-settings';
 import { LetterState, BoardGrid } from './types';
@@ -9,6 +10,7 @@ import { LetterState, BoardGrid } from './types';
 const updateGrid = (
   grid: BoardGrid,
   index: number,
+  // eslint-disable-next-line no-unused-vars
   func: (row: BoardGrid[0]) => BoardGrid[0]
 ) => {
   return grid.map((row, rowIndex) => {
@@ -51,6 +53,10 @@ const App: Component = () => {
   // Get word of the day
   const answer = getWordOfTheDay();
 
+  // setup easter egg word
+  const easteregg = 'mirai';
+  const JsConfetti = new JSConfetti();
+
   // Board state. Each tile is represented as { letter, state }
   const [grid, setGrid] = createSignal<BoardGrid>(
     Array.from({ length: 6 }, () =>
@@ -82,10 +88,31 @@ const App: Component = () => {
     setGrid(updateGrid(grid(), currentRowIndex(), clearLastTile));
 
   function completeRow() {
+    const transitionTime = 0;
     const newGrid = updateGrid(grid(), currentRowIndex(), (row) => {
       const currentRow = row.slice();
-      if (currentRow.every((tile) => tile.letter)) {
-        const guess = currentRow.map((tile) => tile.letter).join('');
+      const guess = currentRow.map((tile) => tile.letter).join('');
+      if (guess === easteregg) {
+        allowInput = false;
+        setTimeout(() => {
+          setResultGrid(genResultGrid());
+          showMessage(
+            [
+              'Genius',
+              'Magnificent',
+              'Impressive',
+              'Splendid',
+              'Great',
+              'Phew',
+            ][currentRowIndex()],
+            -1
+          );
+          JsConfetti.addConfetti({
+            confettiNumber: 1000,
+          });
+          setSuccess(true);
+        }, transitionTime);
+      } else if (currentRow.every((tile) => tile.letter)) {
         if (!allWords.includes(guess) && guess !== answer) {
           shake();
           showMessage(`Not in word list`);
@@ -137,19 +164,22 @@ const App: Component = () => {
               ][currentRowIndex()],
               -1
             );
+            JsConfetti.addConfetti({
+              confettiNumber: 1000,
+            });
             setSuccess(true);
-          }, 1600);
+          }, transitionTime);
         } else if (currentRowIndex() < grid().length - 1) {
           // go the next row
           setCurrentRowIndex((currentrowIndex) => currentrowIndex + 1);
           setTimeout(() => {
             allowInput = true;
-          }, 1600);
+          }, transitionTime);
         } else {
           // game over :(
           setTimeout(() => {
             showMessage(answer.toUpperCase(), -1);
-          }, 1600);
+          }, transitionTime);
         }
       } else {
         shake();
