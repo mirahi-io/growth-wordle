@@ -1,0 +1,22 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+protected_branches=("main")
+current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+# check if the last commit is a release
+last_commit_message=$(git log -1 --pretty=%B)
+release_message="chore: release v"
+
+if [[ "$last_commit_message" == *"$release_message"* ]]; then
+  exit 0
+else
+  for i in ${protected_branches[@]}; do
+    if [ $i = $current_branch ]; then
+      echo "${i} is a protected branch, create PR to merge"
+      exit 1
+    fi
+  done
+fi
+
+exit 0
