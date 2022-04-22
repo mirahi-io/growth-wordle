@@ -30,5 +30,8 @@
   "packageManager": "npm@8.1.2",
   "volta": {
     "node": "16.14.2"
+  },
+  "dependencies": {
+    "js-confetti": "^0.10.2"
   }
 }
