@@ -1,7 +1,7 @@
-import type { Component } from "solid-js";
-
-import logo from "./logo.svg";
-import styles from "./App.module.css";
+import type {Component} from 'solid-js';
+import {button} from 'styles/components/button.css';
+import styles from './App.module.css';
+import logo from './logo.svg';
 
 const App: Component = () => {
   return (
@@ -11,6 +11,7 @@ const App: Component = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <button class={button({color: 'natural'})}>test</button>
         <a
           class={styles.link}
           href="https://github.com/solidjs/solid"

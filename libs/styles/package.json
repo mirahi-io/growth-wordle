@@ -1,0 +1,16 @@
+{
+  "name": "styles",
+  "version": "0.0.1",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "config": "*",
+    "tsconfig": "*",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "@vanilla-extract/recipes": "^0.2.4"
+  }
+}

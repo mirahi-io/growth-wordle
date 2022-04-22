@@ -1,10 +1,11 @@
-import { defineConfig } from "vite";
-import solidPlugin from "vite-plugin-solid";
+import {vanillaExtractPlugin} from '@vanilla-extract/vite-plugin';
+import {defineConfig} from 'vite';
+import solidPlugin from 'vite-plugin-solid';
 
 export default defineConfig({
-  plugins: [solidPlugin()],
+  plugins: [solidPlugin(), vanillaExtractPlugin()],
   build: {
-    target: "esnext",
+    target: 'esnext',
     polyfillDynamicImport: false,
   },
 });
