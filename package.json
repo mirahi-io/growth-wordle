@@ -11,6 +11,7 @@
     "dev": "turbo run dev --parallel",
     "solid": "npm run dev -- --filter=solid...",
     "react-demo": "npm run dev -- --filter=react-demo...",
+    "vue-demo": "npm run dev -- --filter=vue-demo...",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install"
