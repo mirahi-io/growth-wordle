@@ -40,7 +40,10 @@ export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
           {row.map((keyValue) => (
             <button
               class={key({ color: 'neutral' })}
-              onClick={() => setActiveKey(keyValue)}
+              onClick={() => {
+                setActiveKey(keyValue);
+                setActiveKey('');
+              }}
             >
               {keyValue}
             </button>
