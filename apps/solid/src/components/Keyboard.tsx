@@ -1,5 +1,5 @@
 import { key } from 'styles/components/key.css';
-import { Setter, onMount, onCleanup, createSignal } from 'solid-js';
+import { onMount, onCleanup, createSignal } from 'solid-js';
 
 const rows = [
   'qwertyuiop'.split(''),
@@ -8,10 +8,10 @@ const rows = [
 ];
 
 type KeyboardProps = {
-  setActiveKey: Setter<string>;
+  onKey: (key: string) => void;
 };
 
-export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
+export const Keyboard = ({ onKey }: KeyboardProps) => {
   onMount(() => {
     document.addEventListener('keydown', keyboardListener);
     document.addEventListener('keyup', cleanKey);
@@ -24,15 +24,15 @@ export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
 
   const keyboardListener = (event: KeyboardEvent) => {
     if (event.key == 'Enter') {
-      setActiveKey(event.key);
+      onKey(event.key);
     } else if (event.key == 'Backspace') {
-      setActiveKey(event.key);
+      onKey(event.key);
     } else if ('abcdefghijklmnopqrstuvwxyz'.includes(event.key.toLowerCase())) {
-      setActiveKey(event.key);
+      onKey(event.key);
     }
   };
 
-  const cleanKey = () => setActiveKey('');
+  const cleanKey = () => onKey('');
 
   return (
     <div>
@@ -42,8 +42,8 @@ export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
             <button
               class={key({ color: 'neutral' })}
               onClick={() => {
-                setActiveKey(keyValue);
-                setActiveKey('');
+                onKey(keyValue);
+                onKey('');
               }}
             >
               {keyValue === 'Backspace' ? (
