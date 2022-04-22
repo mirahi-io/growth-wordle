@@ -1,0 +1,6 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/apps/storefront/.dist
+/coverage
+/.gitlab

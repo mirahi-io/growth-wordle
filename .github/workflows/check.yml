@@ -1,0 +1,38 @@
+name: check
+
+on: [pull_request]
+
+jobs:
+  lint-and-dedupe:
+    runs-on: ubuntu-latest
+    name: Lint deps on node 16.14.0 and ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.14.0
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Lint codebase
+        run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build deps on node 16.14.0 and ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.14.0
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: build
+        run: npm run build

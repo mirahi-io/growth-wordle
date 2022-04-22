@@ -1,0 +1,5 @@
+{
+  "extends": "tsconfig/vue.json",
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
