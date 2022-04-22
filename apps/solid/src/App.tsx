@@ -9,7 +9,7 @@ const App: Component = () => {
   // key clicked by the user
   const [activeKey, setActiveKey] = createSignal('');
 
-  createEffect(() => console.log(activeKey()));
+  createEffect(() => console.log(activeKey()), activeKey());
 
   return (
     <div class={styles.App}>

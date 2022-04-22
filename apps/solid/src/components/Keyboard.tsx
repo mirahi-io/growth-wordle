@@ -12,35 +12,41 @@ type KeyboardProps = {
 };
 
 export const Keyboard = ({ setActiveKey }: KeyboardProps) => {
-  onMount(() => document.addEventListener('keypress', keyboardListener));
-  onCleanup(() => document.removeEventListener('keypress', keyboardListener));
+  onMount(() => {
+    document.addEventListener('keydown', keyboardListener);
+    document.addEventListener('keyup', cleanKey);
+  });
+  onCleanup(() => {
+    document.removeEventListener('keydown', keyboardListener);
+    document.removeEventListener('keyup', cleanKey);
+  });
+
+  const keyboardListener = (event: KeyboardEvent) => {
+    if (event.key == 'Enter') {
+      setActiveKey(event.key);
+    } else if (event.key == 'Backspace') {
+      setActiveKey(event.key);
+    } else if ('abcdefghijklmnopqrstuvwxyz'.includes(event.key.toLowerCase())) {
+      setActiveKey(event.key);
+    }
+  };
+
+  const cleanKey = () => setActiveKey('');
 
   return (
     <div>
       {rows.map((row) => (
         <div>
-          {row.map((subrow) => (
+          {row.map((keyValue) => (
             <button
               class={key({ color: 'neutral' })}
-              onClick={() => setActiveKey(subrow)}
+              onClick={() => setActiveKey(keyValue)}
             >
-              {subrow}
+              {keyValue}
             </button>
           ))}
         </div>
       ))}
     </div>
   );
-};
-
-const keyboardListener = (event: KeyboardEvent) => {
-  if (event.key == 'Enter') {
-    console.log(event.key);
-  } else if (event.key == 'Backspace') {
-    console.log(event.key);
-  } else if ('abcdefghijklmnopqrstuvwxyz'.includes(event.key.toLowerCase())) {
-    console.log(event.key);
-  } else if (event.keyCode === 8) {
-    console.log(event.keyCode);
-  }
 };
