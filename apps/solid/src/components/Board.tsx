@@ -1,4 +1,4 @@
-import { For, Accessor, createEffect } from 'solid-js';
+import { For } from 'solid-js';
 import { BoardGrid } from '../types';
 import {
   board,
@@ -9,22 +9,30 @@ import {
 } from 'styles/components/board.css';
 
 type Props = {
-  grid: Accessor<BoardGrid>;
+  grid: BoardGrid;
+  shakeRowIndex: number;
+  currentRowIndex: number;
+  success: boolean;
 };
 
 export const Board = (props: Props) => {
-  createEffect(() => {
-    console.log(props.grid());
-  });
-
   return (
     <div class={board}>
-      <For each={props.grid()} fallback={<div>Loading...</div>}>
-        {(row) => (
-          <div class={boardRow()}>
+      <For each={props.grid} fallback={<div>Loading...</div>}>
+        {(row, rowIndex) => (
+          <div
+            class={boardRow({
+              shake: props.shakeRowIndex === rowIndex(),
+              jump: props.success && props.currentRowIndex === rowIndex(),
+            })}
+          >
             <For each={row} fallback={<div>Loading...</div>}>
               {(tile, index) => (
-                <div class={boardTile()}>
+                <div
+                  class={boardTile({
+                    state: tile.state,
+                  })}
+                >
                   <div
                     class={boardTileLetterFront({
                       filled: !!tile.letter,

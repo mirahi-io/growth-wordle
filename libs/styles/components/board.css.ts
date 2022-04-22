@@ -118,10 +118,25 @@ export const boardTile = recipe({
         animation: `${boardTileZoom} 0.2s`,
       },
     },
+    state: {
+      0: {},
+      correct: {
+        color: '#fff !important',
+        backgroundColor: '#6aaa64 !important',
+      },
+      present: {
+        color: '#fff !important',
+        backgroundColor: '#c9b458 !important',
+      },
+      absent: {
+        color: '#fff !important',
+        backgroundColor: '#787c7e !important',
+      },
+    },
   },
 });
 
-const boarrdTileLetter = style({
+const boardTileLetter = style({
   boxSizing: 'border-box',
   display: 'inline-flex',
   justifyContent: 'center',
@@ -137,7 +152,7 @@ const boarrdTileLetter = style({
 
 export const boardTileLetterFront = recipe({
   base: [
-    boarrdTileLetter,
+    boardTileLetter,
     {
       border: '2px solid #d3d6da',
     },
@@ -163,7 +178,7 @@ export const boardTileLetterFront = recipe({
 
 export const boardTileLetterBack = recipe({
   base: [
-    boarrdTileLetter,
+    boardTileLetter,
     {
       transform: 'rotateX(180deg)',
     },
