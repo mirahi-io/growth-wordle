@@ -3,6 +3,7 @@ import { button } from 'styles/components/button.css';
 import styles from './App.module.css';
 import { Keyboard } from './components/Keyboard';
 import logo from './logo.svg';
+import { getWordOfTheDay } from 'game-settings';
 
 const App: Component = () => {
   // key clicked by the user
@@ -12,6 +13,7 @@ const App: Component = () => {
 
   return (
     <div class={styles.App}>
+      {getWordOfTheDay()}
       <header class={styles.header}>
         <img src={logo} class={styles.logo} alt="logo" />
         <p>
