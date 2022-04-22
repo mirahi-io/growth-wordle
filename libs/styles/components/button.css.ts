@@ -1,16 +1,16 @@
-import { recipe } from '@vanilla-extract/recipes';
+import { recipe } from "@vanilla-extract/recipes";
 
 export const button = recipe({
   base: {
     borderRadius: 6,
-    backgroundColor: 'blue !important',
+    backgroundColor: "blue !important",
   },
 
   variants: {
     color: {
-      neutral: { background: 'whitesmoke' },
-      brand: { background: 'blueviolet' },
-      accent: { background: 'slateblue' },
+      neutral: { background: "whitesmoke" },
+      brand: { background: "blueviolet" },
+      accent: { background: "slateblue" },
     },
     size: {
       small: { padding: 12 },
@@ -26,17 +26,17 @@ export const button = recipe({
   compoundVariants: [
     {
       variants: {
-        color: 'neutral',
-        size: 'large',
+        color: "neutral",
+        size: "large",
       },
       style: {
-        background: 'ghostwhite',
+        background: "ghostwhite",
       },
     },
   ],
 
   defaultVariants: {
-    color: 'accent',
-    size: 'medium',
+    color: "accent",
+    size: "medium",
   },
 });

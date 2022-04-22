@@ -11,7 +11,7 @@ const App: Component = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <button class={button({color: 'natural'})}>test</button>
+        <button class={button({color: 'neutral'})}>test</button>
         <a
           class={styles.link}
           href="https://github.com/solidjs/solid"
