@@ -118,21 +118,6 @@ export const boardTile = recipe({
         animation: `${boardTileZoom} 0.2s`,
       },
     },
-    state: {
-      0: {},
-      correct: {
-        color: '#fff !important',
-        backgroundColor: '#6aaa64 !important',
-      },
-      present: {
-        color: '#fff !important',
-        backgroundColor: '#c9b458 !important',
-      },
-      absent: {
-        color: '#fff !important',
-        backgroundColor: '#787c7e !important',
-      },
-    },
   },
 });
 
@@ -163,14 +148,9 @@ export const boardTileLetterFront = recipe({
         borderColor: '#999',
       },
     },
-    back: {
-      true: {
-        transform: 'rotateX(180deg)',
-      },
-    },
     revealed: {
       true: {
-        transform: 'rotateX(0deg)',
+        transform: 'rotateX(180deg)',
       },
     },
   },
@@ -184,6 +164,11 @@ export const boardTileLetterBack = recipe({
     },
   ],
   variants: {
+    revealed: {
+      true: {
+        transform: 'rotateX(0deg)',
+      },
+    },
     state: {
       0: {},
       correct: {

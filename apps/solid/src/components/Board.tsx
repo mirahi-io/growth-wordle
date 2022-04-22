@@ -30,7 +30,7 @@ export const Board = (props: Props) => {
               {(tile, index) => (
                 <div
                   class={boardTile({
-                    state: tile.state,
+                    filled: !!tile.letter,
                   })}
                 >
                   <div
@@ -39,7 +39,8 @@ export const Board = (props: Props) => {
                       revealed: !!tile.state,
                     })}
                     style={{
-                      transitionDelay: `${index() * 300}ms`,
+                      'transition-delay': `${index() * 300}ms`,
+                      '-webkit-backface-visibility': 'hidden',
                     }}
                   >
                     {tile.letter}
@@ -47,10 +48,12 @@ export const Board = (props: Props) => {
                   <div
                     class={boardTileLetterBack({
                       state: tile.state,
+                      revealed: !!tile.state,
                     })}
                     style={{
-                      transitionDelay: `${index() * 300}ms`,
-                      animationDelay: `${index() * 100}ms`,
+                      'transition-delay': `${index() * 300}ms`,
+                      'animation-delay': `${index() * 100}ms`,
+                      '-webkit-backface-visibility': 'hidden',
                     }}
                   >
                     {tile.letter}
