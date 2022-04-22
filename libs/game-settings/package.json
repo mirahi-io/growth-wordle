@@ -1,0 +1,9 @@
+{
+  "name": "game-settings",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "files": [
+    "words.ts"
+  ]
+}
