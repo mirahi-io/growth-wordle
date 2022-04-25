@@ -1,7 +1,7 @@
 import { onMount, onCleanup, For, Show } from 'solid-js';
 import {
   styledKeyboard,
-  styledTile,
+  styledKey,
   styledRow,
 } from 'styles/components/keyboard.css';
 
@@ -49,8 +49,8 @@ export const Keyboard = (props: KeyboardProps) => {
                 <button
                   class={
                     key === 'Backspace' || key === 'Enter'
-                      ? styledTile({ size: 'big' })
-                      : styledTile()
+                      ? styledKey({ size: 'big' })
+                      : styledKey()
                   }
                   onClick={() => {
                     props.onKey(key);

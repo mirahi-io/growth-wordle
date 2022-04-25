@@ -11,7 +11,7 @@ export const styledRow = style({
   display: 'flex',
 });
 
-export const styledTile = recipe({
+export const styledKey = recipe({
   base: {
     fontWeight: 'bold',
     fontSize: '0.5rem',
